@@ -1,0 +1,67 @@
+{
+  // Schema reference
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Worker name
+  "name": "marula-open",
+
+  // Entry point
+  "main": "src/worker.tsx",
+
+  // Compatibility settings
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Assets configuration
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "public",
+  },
+
+  // Workers.dev deployment setting
+  "workers_dev": false,
+
+  // Routes configuration
+  "routes": [
+    {
+      "pattern": "marula-open",
+      "custom_domain": true,
+    },
+  ],
+
+  // Observability settings
+  "observability": {
+    "enabled": true,
+  },
+
+  // D1 database configuration
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "marula-open",
+      "database_id": "7f29c253-b6e7-4e28-b730-c5ae919a5cfa",
+    },
+  ],
+
+  // R2 buckets configuration
+  "r2_buckets": [
+    {
+      "bucket_name": "marula-open",
+      "binding": "R2",
+    },
+  ],
+
+  // Migrations configuration
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_classes": ["SessionDO"],
+    },
+  ],
+
+  // Environment variables
+  "vars": {
+    "SECRET_KEY": "secret",
+    "APP_URL": "https://marula-open.dtegart78.workers.dev",
+  },
+}
