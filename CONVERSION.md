@@ -33,6 +33,14 @@ pnpm migrate:new "schema copied"
 pnpm migrate:dev
 ```
 
+There is no need for any of the code in:
+
+`api/src/directives`
+`api/src/functions`
+`api/src/graphql`
+
+The code in `api/src/services` can be reused when we create our pages and server functions.
+
 ## Frontend Changes
 
 ## Admin and Authentication
