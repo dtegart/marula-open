@@ -15,9 +15,87 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String    @id @default(uuid())
+model Admin {
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  id        String   @id 
+
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  name        String    @unique
+  description String
+  price       Decimal
+  image       String
+  active      Boolean     @default(true)
+  categoryId  Int
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+  category    Category    @relation(fields: [categoryId], references: [id])
+}
+
+model Customer {
   email     String    @unique
+  name      String?
   createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  updatedAt DateTime  @updatedAt
+  id        String    @id @default(uuid())
+  userId    String?
+  addresses Address[]
+  orders    Order[]
+}
+
+model Address {
+  id         Int      @id @default(autoincrement())
+  type       String
+  street     String
+  line2      String?
+  city       String
+  state      String
+  postCode   String
+  active     Boolean  @default(true)
+  orderId    Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customerId String   
+  customer   Customer @relation(fields: [customerId], references: [id])
+  order      Order?   @relation(fields: [orderId], references: [id])
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  email      String
+  orderDate  DateTime    @default(now())
+  status     String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now())
+  customerId String?     
+  addresses  Address[]
+  customer   Customer?   @relation(fields: [customerId], references: [id])
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  quantity  Int
+  orderId   Int
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
 }
