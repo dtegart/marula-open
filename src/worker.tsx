@@ -1,12 +1,14 @@
-import { defineApp, ErrorResponse } from "@redwoodjs/sdk/worker";
-import { route, render, prefix } from "@redwoodjs/sdk/router";
 import { Document } from "@/app/Document";
-import { Home } from "@/app/pages/Home";
 import { setCommonHeaders } from "@/app/headers";
+import { Home } from "@/app/pages/Home";
 import { userRoutes } from "@/app/pages/user/routes";
-import { sessions, setupSessionStore } from "./session/store";
-import { Session } from "./session/durableObject";
+import { prefix, render, route } from "@redwoodjs/sdk/router";
+import { defineApp, ErrorResponse } from "@redwoodjs/sdk/worker";
+
 import { db, setupDb } from "./db";
+import { Session } from "./session/durableObject";
+import { sessions, setupSessionStore } from "./session/store";
+
 import type { User } from "@prisma/client";
 import { env } from "cloudflare:workers";
 export { SessionDurableObject } from "./session/durableObject";
@@ -47,7 +49,7 @@ export default defineApp([
     }
   },
   render(Document, [
-    route("/", () => new Response("Hello, World!")),
+    route("/", Home),
     route("/protected", [
       ({ ctx }) => {
         if (!ctx.user) {
