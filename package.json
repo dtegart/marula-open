@@ -43,6 +43,7 @@
     "react": "19.0.0-rc-f2df5694-20240916",
     "react-dom": "19.0.0-rc-f2df5694-20240916",
     "react-server-dom-webpack": "19.0.0-rc-f2df5694-20240916",
+    "stripe": "^18.0.0",
     "tailwind-merge": "^3.2.0",
     "tailwindcss": "^4.1.3",
     "tw-animate-css": "^1.2.5"
